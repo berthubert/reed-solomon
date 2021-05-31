@@ -9,8 +9,7 @@ Also make sure you have `cmake`.
 Then:
 
 ```
-mkdir build
-cd build
+mkdir build; cd build 
 cmake ..
 make
 ```
@@ -20,6 +19,9 @@ Then try:
 ```
 ./rscmd --help
 ```
+
+This command will allow you to encode and decode messages using all
+Reed-Solomon configurations, as long as the symbol size is 8 bits. 
 
 A sample run:
 
@@ -51,3 +53,8 @@ Fixed 2 corruptions in positions: 0 3
 Recovered: bert hubert
 ```
 
+Exercising
+----------
+If you are unsure about your chosen parameters, try `--exercise somestring`.
+This will do 10000 encode/decode cycles, where each time the message is
+mangled as much as possible while staying within what should be recoverable.
