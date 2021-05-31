@@ -20,6 +20,9 @@ set(CMAKE_CXX_EXTENSIONS ON)
 #target_include_directories(support PUBLIC ext/powerblog/ext/simplesocket ext/powerblog/ext ext/fmt-7.1.3/include/)
 #target_link_libraries(support PUBLIC -lh2o-evloop -lssl -lcrypto Threads::Threads)
 
-add_executable(rstest rstest.cc  )
+add_executable(rstest rstest.cc rs.cc )
 target_link_libraries(rstest -lfec)
+
+add_executable(rscmd rscmd.cc rs.cc )
+target_link_libraries(rscmd -lfec)
 
