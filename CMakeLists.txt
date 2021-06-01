@@ -26,3 +26,8 @@ target_link_libraries(rstest -lfec)
 add_executable(rscmd rscmd.cc rs.cc )
 target_link_libraries(rscmd -lfec)
 
+add_executable(testrunner testrunner.cc rs.cc )
+target_link_libraries(testrunner -lfec)
+
+enable_testing()
+add_test(testname testrunner)
