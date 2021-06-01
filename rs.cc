@@ -40,8 +40,16 @@ int RSCodec::decode(const std::string& in, std::string& out, vector<int>* corrs)
   
   unsigned char data[in.length()];
   memcpy(data, in.c_str(), in.length());
-  int eras_pos[d_nroots];
-  int ret = decode_rs_char(d_rs, data, eras_pos, 0);
+  vector<int> eras_pos;
+  int eras_no=0;
+  if(corrs) {
+    for(const auto& c : *corrs) {
+      eras_pos.push_back(c);
+      eras_no++;
+    }
+  }
+  eras_pos.resize(d_nroots);
+  int ret = decode_rs_char(d_rs, data, &eras_pos[0], eras_no);
   /*
     The decoder corrects the symbols "in place", returning the number of symbols in error. If the codeword is uncorrectable, -1 is returned and the data  block  is  unchanged.  If
     eras_pos  is non-null, it is used to return a list of corrected symbol positions, in no particular order.  This means that the array passed through this parameter must have at
