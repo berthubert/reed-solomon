@@ -24,7 +24,7 @@ add_executable(rstest rstest.cc rs.cc )
 target_link_libraries(rstest -lfec)
 
 add_executable(rscmd rscmd.cc rs.cc )
-target_link_libraries(rscmd -lfec)
+target_link_libraries(rscmd -lfec -static)
 
 add_executable(testrunner testrunner.cc rs.cc )
 target_link_libraries(testrunner -lfec)

@@ -36,6 +36,13 @@ try
     .action([](const std::string& value) { return std::stoi(value); })        
     .help("degrees of polynomial");
 
+  program.add_argument("-e", "--erase")
+    .default_value<std::vector<int>>({})
+    .append()
+    .action([](const std::string& value) { return std::stoi(value); })        
+    .help("tell decoder about an erased position");
+
+  
   program.add_argument("--prim")
     .default_value<int>(11)
     .action([](const std::string& value) { return std::stoi(value); })    
@@ -83,7 +90,7 @@ try
       cout<<"x^"<<p;
   }
   cout<<endl;
-
+  
   
   RSCodec rsc(poly, fcr, prim, nroots);
   cout<<"polyval: ";
@@ -139,7 +146,13 @@ try
       msg.append(1, (char)v);
     }
     std::string out;
-    vector<int> corrections;
+    vector<int> corrections = program.get<vector<int>>("--erase");
+    if(!corrections.empty()) {
+      cout<<"Informing decoder about "<<corrections.size()<<" erasures: ";
+      for(const auto& e : corrections)
+	cout<<" "<< e;
+      cout<<endl;
+    }
     int result=rsc.decode(msg, out, &corrections);
     cout<<"Fixed "<<result<<" corruptions";
     if(result) {
