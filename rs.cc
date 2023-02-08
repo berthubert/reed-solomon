@@ -107,7 +107,7 @@ void RSCodecInt::encode(vector<unsigned int>& msg)
 
   vector<unsigned int> parity(d_nroots);
   
-  encode_rs_int(d_rs, (int*)&msg[0], (int*)&parity[0]);
+  encode_rs_int(d_rs, &msg[0], &parity[0]);
   for(const auto& i : parity)
     msg.push_back(i);
 }
@@ -127,7 +127,7 @@ int RSCodecInt::decode(const std::vector<unsigned int>& in, std::vector<unsigned
     }
   }
   eras_pos.resize(d_nroots);
-  int ret = decode_rs_int(d_rs, (int*)&data[0], (int*)&eras_pos[0], eras_no);
+  int ret = decode_rs_int(d_rs, &data[0], (int*)eras_pos.data(), eras_no);
   /*
     The decoder corrects the symbols "in place", returning the number of symbols in error. If the codeword is uncorrectable, -1 is returned and the data  block  is  unchanged.  If
     eras_pos  is non-null, it is used to return a list of corrected symbol positions, in no particular order.  This means that the array passed through this parameter must have at
